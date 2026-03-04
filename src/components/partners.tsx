@@ -32,7 +32,7 @@ const Partners = () => {
                     src={partner.logo}
                     alt={partner.name}
                     fill
-                    className="object-cover object-center"
+                    className="object-contain object-center"
                   />
                 ) : (
                   <span className="text-lg font-bold text-foreground/40">{partner.name}</span>
