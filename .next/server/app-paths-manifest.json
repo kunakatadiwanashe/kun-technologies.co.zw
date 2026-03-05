@@ -1,8 +1,9 @@
 {
   "/page": "app/page.js",
-  "/blog/[slug]/page": "app/blog/[slug]/page.js",
-  "/blog/form/page": "app/blog/form/page.js",
+  "/admin/blogs/page": "app/admin/blogs/page.js",
   "/blog/page": "app/blog/page.js",
+  "/blog/form/page": "app/blog/form/page.js",
+  "/api/blogs/[slug]/route": "app/api/blogs/[slug]/route.js",
   "/api/blogs/route": "app/api/blogs/route.js",
-  "/api/blogs/[slug]/route": "app/api/blogs/[slug]/route.js"
+  "/_not-found/page": "app/_not-found/page.js"
 }
