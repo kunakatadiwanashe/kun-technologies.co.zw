@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Mail, Phone, MapPin } from "lucide-react";
 import Image from "next/image";
 
-import Logo from "@/assets/images/logo.png";
+import Logo from "@/assets/images/logo2.png";
 
 const Footer = () => {
   return (
@@ -12,7 +12,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <Image src={Logo} alt="Kun Technologies" className="h-[120px] w-auto dark:brightness-0 dark:invert" />
+              <Image src={Logo} alt="Kun Technologies" className="h-[120px] w-auto rounded-lg" />
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Building smart digital solutions for modern businesses in Zimbabwe and beyond.

@@ -9,7 +9,7 @@ import { useTheme } from "next-themes";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import logo from "@/assets/images/logo.png";
+import logo from "@/assets/images/logo2.png";
 import Link from "next/link";
 
 const navLinks = [
@@ -54,7 +54,7 @@ const Navbar = () => {
             <Image
               src={logo}
               alt="KunTech Logo"
-              className="object-cover transition-all duration-300 group-hover:rotate-3"
+              className="object-cover transition-all duration-300 group-hover:rotate-3 rounded-sm"
               priority
             />
           </div>
