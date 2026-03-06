@@ -75,8 +75,24 @@ export default function PortfolioPage() {
 
           {/* Grid */}
           {loading ? (
-            <div className="text-center py-20">
-              <p className="text-muted-foreground">Loading projects...</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="rounded-2xl overflow-hidden bg-card border border-border">
+                  <div className="aspect-video bg-muted animate-pulse" />
+                  <div className="p-6">
+                    <div className="h-5 w-24 bg-muted rounded-full mb-3 animate-pulse" />
+                    <div className="h-6 bg-muted rounded mb-2 animate-pulse" />
+                    <div className="h-6 w-3/4 bg-muted rounded mb-3 animate-pulse" />
+                    <div className="h-4 bg-muted rounded mb-2 animate-pulse" />
+                    <div className="h-4 w-5/6 bg-muted rounded mb-4 animate-pulse" />
+                    <div className="flex flex-wrap gap-1.5">
+                      <div className="h-6 w-16 bg-muted rounded animate-pulse" />
+                      <div className="h-6 w-20 bg-muted rounded animate-pulse" />
+                      <div className="h-6 w-14 bg-muted rounded animate-pulse" />
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           ) : filtered.length === 0 ? (
             <div className="text-center py-20">

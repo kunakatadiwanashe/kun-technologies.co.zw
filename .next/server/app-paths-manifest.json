@@ -1,10 +1,6 @@
 {
-  "/admin/projects/new/page": "app/admin/projects/new/page.js",
   "/portfolio/page": "app/portfolio/page.js",
+  "/page": "app/page.js",
   "/api/blogs/route": "app/api/blogs/route.js",
-  "/admin/projects/page": "app/admin/projects/page.js",
-  "/blog/page": "app/blog/page.js",
-  "/api/projects/route": "app/api/projects/route.js",
-  "/services/page": "app/services/page.js",
-  "/page": "app/page.js"
+  "/blog/page": "app/blog/page.js"
 }

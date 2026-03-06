@@ -55,10 +55,50 @@ export default function BlogPage() {
         </section>
         <section className="section-padding !pt-0">
           <div className="container-max">
-            <div className="flex justify-center py-20">
-              <div className="animate-pulse text-muted-foreground">
-                Loading articles...
+            {/* Filters Skeleton */}
+            <div className="flex flex-col md:flex-row gap-4 mb-10">
+              <div className="relative flex-1 max-w-md">
+                <div className="h-10 bg-muted rounded-xl animate-pulse" />
               </div>
+              <div className="flex flex-wrap gap-2">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="h-10 w-20 bg-muted rounded-xl animate-pulse" />
+                ))}
+              </div>
+            </div>
+
+            {/* Featured Skeleton */}
+            <div className="rounded-2xl overflow-hidden bg-card border border-border mb-16">
+              <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="aspect-video md:aspect-auto bg-muted animate-pulse" />
+                <div className="p-8 md:p-10">
+                  <div className="h-6 w-24 bg-muted rounded-full mb-4 animate-pulse" />
+                  <div className="h-8 bg-muted rounded mb-3 animate-pulse" />
+                  <div className="h-8 w-3/4 bg-muted rounded mb-4 animate-pulse" />
+                  <div className="h-4 bg-muted rounded mb-2 animate-pulse" />
+                  <div className="h-4 w-1/2 bg-muted rounded animate-pulse" />
+                </div>
+              </div>
+            </div>
+
+            {/* Posts Grid Skeleton */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="rounded-2xl overflow-hidden bg-card border border-border">
+                  <div className="aspect-video bg-muted animate-pulse" />
+                  <div className="p-6">
+                    <div className="h-4 w-20 bg-muted rounded mb-2 animate-pulse" />
+                    <div className="h-5 bg-muted rounded mb-2 animate-pulse" />
+                    <div className="h-5 w-3/4 bg-muted rounded mb-3 animate-pulse" />
+                    <div className="h-4 bg-muted rounded mb-2 animate-pulse" />
+                    <div className="h-4 w-1/2 bg-muted rounded animate-pulse" />
+                    <div className="mt-4 flex items-center gap-3">
+                      <div className="h-3 w-16 bg-muted rounded animate-pulse" />
+                      <div className="h-3 w-8 bg-muted rounded animate-pulse" />
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
