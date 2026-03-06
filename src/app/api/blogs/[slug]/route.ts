@@ -1,3 +1,4 @@
+
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
@@ -23,7 +24,7 @@ export async function GET(
     // Parse tags JSON string back to array
     return NextResponse.json({
       ...post,
-      tags: JSON.parse(post.tags),
+      tags: JSON.parse(post.tags || "[]"),
     });
   } catch (error) {
     console.error("Error fetching blog post:", error);
@@ -88,7 +89,7 @@ export async function PUT(
 
     return NextResponse.json({
       ...post,
-      tags: JSON.parse(post.tags),
+      tags: JSON.parse(post.tags || "[]"),
     });
   } catch (error) {
     console.error("Error updating blog post:", error);

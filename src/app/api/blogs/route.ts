@@ -1,3 +1,4 @@
+
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
@@ -9,7 +10,7 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get("category");
     const search = searchParams.get("search");
 
-    const where: any = {};
+    const where: Record<string, unknown> = {};
 
     if (featured === "true") {
       where.featured = true;
@@ -34,7 +35,7 @@ export async function GET(request: NextRequest) {
     // Parse tags JSON string back to array
     const postsWithParsedTags = posts.map((post) => ({
       ...post,
-      tags: JSON.parse(post.tags),
+      tags: JSON.parse(post.tags || "[]"),
     }));
 
     return NextResponse.json(postsWithParsedTags);
@@ -106,7 +107,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       ...post,
-      tags: JSON.parse(post.tags),
+      tags: JSON.parse(post.tags || "[]"),
     }, { status: 201 });
   } catch (error) {
     console.error("Error creating blog post:", error);
