@@ -1,15 +1,45 @@
+
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "@/components/AnimatedSection";
-import { projects } from "@/lib/data";
 
-const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)))];
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  image: string;
+  technologies: string[];
+  slug: string;
+  client: string;
+  results: string[];
+}
 
 export default function PortfolioPage() {
   const [active, setActive] = useState("All");
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    try {
+      const res = await fetch("/api/projects");
+      const data = await res.json();
+      setProjects(data);
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)))];
   const filtered = active === "All" ? projects : projects.filter((p) => p.category === active);
 
   return (
@@ -44,36 +74,48 @@ export default function PortfolioPage() {
           </div>
 
           {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((project, i) => (
-              <AnimatedSection key={project.id} delay={i * 80}>
-                <div className="group rounded-2xl overflow-hidden bg-card border border-border hover-lift h-full flex flex-col">
-                  <div className="aspect-video overflow-hidden relative">
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                  <div className="p-6 flex-1 flex flex-col">
-                    <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full w-fit">{project.category}</span>
-                    <h3 className="font-heading font-semibold text-lg mt-3 mb-2">{project.title}</h3>
-                    <p className="text-muted-foreground text-sm flex-1">{project.description}</p>
-                    <div className="flex flex-wrap gap-1.5 mt-4">
-                      {project.technologies.slice(0, 4).map((t) => (
-                        <span key={t} className="px-2 py-0.5 rounded bg-muted text-muted-foreground text-xs">{t}</span>
-                      ))}
+          {loading ? (
+            <div className="text-center py-20">
+              <p className="text-muted-foreground">Loading projects...</p>
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="text-muted-foreground">No projects found.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filtered.map((project, i) => (
+                <AnimatedSection key={project.id} delay={i * 80}>
+                  <div className="group rounded-2xl overflow-hidden bg-card border border-border hover-lift h-full flex flex-col">
+                    <div className="aspect-video overflow-hidden relative">
+                      <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
-                    <div className="mt-4 pt-4 border-t border-border">
-                      <p className="text-xs text-muted-foreground mb-2">Key Results:</p>
-                      <ul className="space-y-1">
-                        {project.results.map((r, j) => (
-                          <li key={j} className="text-xs text-muted-foreground">• {r}</li>
+                    <div className="p-6 flex-1 flex flex-col">
+                      <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full w-fit">{project.category}</span>
+                      <h3 className="font-heading font-semibold text-lg mt-3 mb-2">{project.title}</h3>
+                      <p className="text-muted-foreground text-sm flex-1">{project.description}</p>
+                      <div className="flex flex-wrap gap-1.5 mt-4">
+                        {project.technologies.slice(0, 4).map((t) => (
+                          <span key={t} className="px-2 py-0.5 rounded bg-muted text-muted-foreground text-xs">{t}</span>
                         ))}
-                      </ul>
+                      </div>
+                      {project.results && project.results.length > 0 && (
+                        <div className="mt-4 pt-4 border-t border-border">
+                          <p className="text-xs text-muted-foreground mb-2">Key Results:</p>
+                          <ul className="space-y-1">
+                            {project.results.map((r, j) => (
+                              <li key={j} className="text-xs text-muted-foreground">• {r}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
