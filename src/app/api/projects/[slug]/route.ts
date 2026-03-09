@@ -2,6 +2,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+// Force dynamic - don't prerender this route
+export const dynamic = 'force-dynamic';
+
 // GET /api/projects/[slug] - Get single project
 export async function GET(
   request: NextRequest,
