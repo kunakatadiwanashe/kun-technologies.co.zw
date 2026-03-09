@@ -16,6 +16,7 @@ const navLinks = [
   { label: "Services", path: "/services" },
   { label: "Portfolio", path: "/portfolio" },
   { label: "Blog", path: "/blog" },
+  { label: "Meet The Team", path: "/team" }
 ];
 
 const Navbar = () => {
