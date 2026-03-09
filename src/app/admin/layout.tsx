@@ -25,8 +25,8 @@ export default function AdminLayout({
     router.push("/admin/login");
   };
 
-  // Allow login page to render without authentication
-  if (pathname === "/admin/login") {
+  // Allow login and signup pages to render without authentication
+  if (pathname === "/admin/login" || pathname === "/admin/signup") {
     return (
       <div className="min-h-screen bg-background">
         {children}

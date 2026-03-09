@@ -6,9 +6,18 @@ export async function middleware(request: NextRequest) {
     request,
   });
 
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  // Skip auth check if environment variables are not configured
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.warn("Supabase environment variables not configured");
+    return supabaseResponse;
+  }
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         getAll() {
@@ -31,17 +40,24 @@ export async function middleware(request: NextRequest) {
 
   // Refresh session if expired
   const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  
+  const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  console.log("Middleware - Session:", session?.user?.email);
+  console.log("Middleware - User:", user?.email);
 
   const { pathname } = request.nextUrl;
 
   // Define admin routes that need protection
-  const isAdminRoute = pathname.startsWith("/admin") && pathname !== "/admin/login";
+  const isAdminRoute = pathname.startsWith("/admin") && pathname !== "/admin/login" && pathname !== "/admin/signup";
   const isApiRoute = pathname.startsWith("/api");
 
-  // If user is already logged in and tries to access login page, redirect to admin dashboard
-  if (pathname === "/admin/login") {
+  // If user is already logged in and tries to access login/signup page, redirect to admin dashboard
+  if (pathname === "/admin/login" || pathname === "/admin/signup") {
     if (user) {
       const url = new URL("/admin", request.url);
       return NextResponse.redirect(url);

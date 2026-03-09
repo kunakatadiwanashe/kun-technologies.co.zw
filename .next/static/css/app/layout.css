@@ -3204,6 +3204,10 @@ h1, h2, h3, h4, h5, h6 {
   color: hsl(var(--primary-foreground));
 }
 
+.hover\:text-primary\/80:hover{
+  color: hsl(var(--primary) / 0.8);
+}
+
 .hover\:text-primary\/90:hover{
   color: hsl(var(--primary) / 0.9);
 }

@@ -1,12 +1,25 @@
-# Authentication Implementation TODO
+# TODO - Fix Invalid Hook Call Error
 
-## Tasks
-- [x] 1. Create Auth Context (src/lib/auth-context.tsx)
-- [x] 2. Create useAuth hook (src/hooks/use-auth.ts)
-- [x] 3. Create Next.js middleware for route protection (src/middleware.ts)
-- [x] 4. Update Providers to include AuthProvider (src/components/Providers.tsx)
-- [x] 5. Create Login page (src/app/admin/login/page.tsx)
-- [x] 6. Create Logout API route (src/app/api/auth/logout/route.ts)
-- [x] 7. Create admin layout with auth check
-- [x] 8. Update Navbar with logout functionality
+## Status: ✅ COMPLETED
+
+### Issue
+Error: "Invalid hook call. Hooks can only be called inside of the body of a function component."
+
+### Root Cause
+The file `src/hooks/use-auth.ts` contained an invalid line that called a React hook at the module level (outside any function component):
+```typescript
+export const { signUp } = useAuthContext() || {};
+```
+
+This violated React's Rules of Hooks - hooks can only be called inside React function components or custom hooks.
+
+### Fix Applied
+Removed the invalid line from `src/hooks/use-auth.ts`. The `useAuth()` custom hook already returns `signUp` (and other auth methods) from the context, so the redundant export was unnecessary and harmful.
+
+### Files Modified
+- `src/hooks/use-auth.ts` - Removed invalid module-level hook call
+
+### Verification
+- Restart the development server to ensure the fix takes effect
+- The error should no longer appear
 
