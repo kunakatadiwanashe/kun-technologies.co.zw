@@ -2568,6 +2568,15 @@ h1, h2, h3, h4, h5, h6 {
 .pt-\[9rem\]{
   padding-top: 9rem;
 }
+.pt-\[\]{
+  padding-top: ;
+}
+.pt-\[64px\]{
+  padding-top: 64px;
+}
+.pt-\[164px\]{
+  padding-top: 164px;
+}
 .text-left{
   text-align: left;
 }

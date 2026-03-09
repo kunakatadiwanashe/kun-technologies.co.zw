@@ -66,7 +66,9 @@ export default function AdminLoginPage() {
         description: "Redirecting to admin dashboard...",
       });
 
-      router.replace("/admin");
+      // The redirect is now handled by the `useEffect` hook, which waits for the
+      // auth state to be updated. This prevents the race condition.
+      // router.replace("/admin");
     } catch (err) {
       toast({
         title: "Unexpected Error",
