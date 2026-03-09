@@ -57,7 +57,7 @@ export default function AdminLayout({
               className="text-xl font-bold flex items-center gap-2"
             >
               <LayoutDashboard className="w-5 h-5" />
-              Admin Panel
+              Admin@kuntechnologies.co.zw
             </Link>
             <nav className="flex items-center gap-4">
               {adminLinks.map((link) => {

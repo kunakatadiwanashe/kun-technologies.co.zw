@@ -93,7 +93,7 @@ const Navbar = () => {
           {/* Show Admin link if user is logged in */}
           {user ? (
             <Button asChild className="rounded-full px-6" variant="default">
-              <Link href="/admin">Dashboard</Link>
+              <Link href="/contact">Get In Touch</Link>
             </Button>
           ) : (
             <Button asChild className="rounded-full px-6 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all active:scale-95">
