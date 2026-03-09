@@ -127,3 +127,23 @@
   }
 }
 
+.clip-hexagon {
+  clip-path: polygon(
+    25% 5%, 
+    75% 5%, 
+    100% 50%, 
+    75% 95%, 
+    25% 95%, 
+    0% 50%
+  );
+}
+
+
+@keyframes scroll-down {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(18px); opacity: 0; }
+}
+
+.animate-scroll-down {
+  animation: scroll-down 2s infinite;
+}

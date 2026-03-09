@@ -4,12 +4,13 @@ import AnimatedSection from "@/components/AnimatedSection";
 
 
 import logo3Fit from "@/assets/images/3fit.png"; 
+import partner2 from "@/assets/images/panthers.png";
 
 const Partners = () => {
   const partners = [
     { name: "3FIT Design & Print House", logo: logo3Fit },
     { name: "TaxCapital", logo: logo3Fit }, // Swap with actual imports later
-    { name: "Vic Falls Panthers", logo: logo3Fit },
+    { name: "Vic Falls Panthers", logo: partner2 },
     { name: "Brand Four", logo: logo3Fit },
     { name: "Brand Five", logo: logo3Fit },
   ];
@@ -32,7 +33,7 @@ const Partners = () => {
                     src={partner.logo}
                     alt={partner.name}
                     fill
-                    className="object-cover object-center"
+                    className="object-contain object-center"
                   />
                 ) : (
                   <span className="text-lg font-bold text-foreground/40">{partner.name}</span>

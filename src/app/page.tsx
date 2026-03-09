@@ -5,7 +5,9 @@ import { ArrowRight, Globe, ShoppingCart, Palette, Brush, Wrench, Camera, Code, 
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "@/components/AnimatedSection";
 import { services, projects, testimonials, blogPosts } from "@/lib/data";
-import Partners from "@/components/partners"; // Ensure path is correct
+import Partners from "@/components/partners"; // 
+
+
 
 const iconMap: Record<string, React.ReactNode> = {
   Globe: <Globe className="w-6 h-6" />,
@@ -27,50 +29,62 @@ const stats = [
 export default function Home() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5" />
-          <div className="absolute top-1/4 -right-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-1/4 -left-32 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: "3s" }} />
-          {/* Grid pattern */}
-          <div className="absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-            backgroundSize: "60px 60px"
-          }} />
-        </div>
 
-        <div className="container-max relative z-10 pt-20 pb-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-5xl">
+
+
+
+
+
+
+      <section className="relative min-h-screen flex items-center overflow-hidden"
+        style={{
+          backgroundImage: "url('/bg.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "right"
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-background/90 to-background/70" />
+
+
+
+
+        <div className="container relative z-10 ">
+          <div className="">
             <AnimatedSection>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold mb-8 backdrop-blur-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                </span>
                 Zimbabwean Digital Solutions Company
               </div>
             </AnimatedSection>
 
             <AnimatedSection delay={100}>
-              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6">
+              <h1  className="font-heading text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tight leading-[1.05] mb-6">Kun Technologies</h1>
+              <h2 className="font-heading text-5xl sm:text-6xl lg:text-5xl font-bold tracking-tight leading-[1.05] mb-6 flex flex-col">
                 Building Smart Digital Solutions for{" "}
-                <span className="gradient-text">Modern Businesses</span>
-              </h1>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+                  Modern Businesses
+                </span>
+              </h2>
             </AnimatedSection>
 
             <AnimatedSection delay={200}>
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed">
-                We design and develop innovative, reliable digital solutions that help businesses in Zimbabwe and beyond thrive in the modern economy.
+                We design and develop innovative, reliable digital solutions that help
+                businesses in Zimbabwe and beyond thrive in the modern economy.
               </p>
             </AnimatedSection>
 
             <AnimatedSection delay={300}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" asChild className="text-base px-8 h-12 rounded-xl">
+              <div className="flex flex-wrap gap-4">
+                <Button size="lg" asChild className="text-base px-8 h-14 rounded-2xl shadow-lg shadow-primary/20">
                   <Link href="/services">
-                    View Our Services <ArrowRight className="w-5 h-5 ml-1" />
+                    View Our Services <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild className="text-base px-8 h-12 rounded-xl">
+                <Button size="lg" variant="outline" asChild className="text-base px-8 h-14 rounded-2xl backdrop-blur-sm">
                   <Link href="/contact">Request a Quote</Link>
                 </Button>
               </div>
@@ -78,6 +92,27 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       {/* Stats */}
       <section className="relative -mt-8 z-20 px-4 sm:px-6 lg:px-8">

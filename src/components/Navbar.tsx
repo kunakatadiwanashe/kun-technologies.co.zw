@@ -1,16 +1,14 @@
-
-
-
 "use client";
 
-import { useState, useEffect } from "react";;
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import logo from "@/assets/images/logo.png";
+import logo from "@/assets/images/logo2.png";
 import Link from "next/link";
+import { useAuth } from "@/hooks/use-auth";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -18,6 +16,7 @@ const navLinks = [
   { label: "Services", path: "/services" },
   { label: "Portfolio", path: "/portfolio" },
   { label: "Blog", path: "/blog" },
+  { label: "Meet The Team", path: "/team" }
 ];
 
 const Navbar = () => {
@@ -26,6 +25,7 @@ const Navbar = () => {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
+  const { user } = useAuth();
 
   useEffect(() => {
     setMounted(true);
@@ -54,7 +54,7 @@ const Navbar = () => {
             <Image
               src={logo}
               alt="KunTech Logo"
-              className="object-cover transition-all duration-300 group-hover:rotate-3"
+              className="object-cover transition-all duration-300 group-hover:rotate-3 rounded-sm"
               priority
             />
           </div>
@@ -91,9 +91,16 @@ const Navbar = () => {
             {theme === "dark" ? <Sun className="w-[1.2rem] h-[1.2rem]" /> : <Moon className="w-[1.2rem] h-[1.2rem]" />}
           </Button>
           <div className="h-6 w-[1px] bg-border mx-2" />
-          <Button asChild className="rounded-full px-6 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all active:scale-95">
-            <Link href="/contact">Get a Quote</Link>
-          </Button>
+          {/* Show Admin link if user is logged in */}
+          {user ? (
+            <Button asChild className="rounded-full px-6" variant="default">
+              <Link href="/contact">Get In Touch</Link>
+            </Button>
+          ) : (
+            <Button asChild className="rounded-full px-6 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all active:scale-95">
+              <Link href="/contact">Get a Quote</Link>
+            </Button>
+          )}
         </div>
 
         {/* Mobile Toggle */}
@@ -135,9 +142,15 @@ const Navbar = () => {
             </Link>
           ))}
           <hr className="border-border/50 my-2" />
-          <Button asChild size="lg" className="w-full rounded-xl">
-            <Link href="/contact">Get a Quote</Link>
-          </Button>
+          {user ? (
+            <Button asChild size="lg" className="w-full rounded-xl">
+              <Link href="/admin">Dashboard</Link>
+            </Button>
+          ) : (
+            <Button asChild size="lg" className="w-full rounded-xl">
+              <Link href="/contact">Get a Quote</Link>
+            </Button>
+          )}
         </div>
       </div>
     </nav>
@@ -145,3 +158,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

@@ -1,4 +1,4 @@
-// File: C:\Users\KunTech\Desktop\code\kuntech-digital-forge\src\app\page.tsx
+// File: C:\Users\KunTech\code\kun-technologies.co.zw\src\app\page.tsx
 import * as entry from '../../../src/app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

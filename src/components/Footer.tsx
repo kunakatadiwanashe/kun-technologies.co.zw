@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin } from "lucide-react";
+import Image from "next/image";
+
+import Logo from "@/assets/images/logo2.png";
 
 const Footer = () => {
   return (
@@ -9,8 +12,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center font-heading font-bold text-primary-foreground text-lg">K</div>
-              <span className="font-heading font-bold text-xl">KunTech</span>
+              <Image src={Logo} alt="Kun Technologies" className="h-[120px] w-auto rounded-lg" />
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Building smart digital solutions for modern businesses in Zimbabwe and beyond.
@@ -48,6 +50,8 @@ const Footer = () => {
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-primary" />
                 <a href="mailto:info@kuntech.co.zw" className="hover:text-primary transition-colors">info@kuntechnologies.co.zw</a>
+                  <a href="mailto:sales@kuntechnologies.co.zw" className="hover:text-primary transition-colors">sales@kuntechnologies.co.zw</a>
+               
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-primary" />

@@ -6,11 +6,13 @@ import { useParams } from "next/navigation";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Clock, User, Share2, Facebook, Twitter, Linkedin } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
-import { blogPosts } from "@/lib/data";
+import { BlogPost, useBlogs } from "@/hooks/use-blogs";
 
 export default function BlogPostPage() {
   const params = useParams();
-  const [slug, setSlug] = useState<string>("");
+  const { getPost, posts } = useBlogs();
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [loading, setLoading] = useState(true);
   const [shareUrl, setShareUrl] = useState<string>("");
   const [mounted, setMounted] = useState(false);
   
@@ -21,14 +23,26 @@ export default function BlogPostPage() {
   }, []);
   
   useEffect(() => {
-    if (params?.slug) {
-      setSlug(params.slug as string);
-    }
-  }, [params]);
-  
-  const post = slug ? blogPosts.find((p) => p.slug === slug) : null;
+    const fetchPost = async () => {
+      if (params?.slug) {
+        setLoading(true);
+        const fetchedPost = await getPost(params.slug as string);
+        setPost(fetchedPost);
+        setLoading(false);
+      }
+    };
+    fetchPost();
+  }, [params?.slug, getPost]);
 
   if (!mounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center pt-32">
+        <div className="animate-pulse">Loading...</div>
+      </div>
+    );
+  }
+
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center pt-32">
         <div className="animate-pulse">Loading...</div>
@@ -39,6 +53,9 @@ export default function BlogPostPage() {
   if (!post) {
     notFound();
   }
+
+  // Get related posts (excluding current)
+  const relatedPosts = posts.filter((p) => p.id !== post.id).slice(0, 3);
 
   return (
     <>
@@ -110,25 +127,27 @@ export default function BlogPostPage() {
       </article>
 
       {/* Related Posts */}
-      <section className="section-padding bg-muted/50">
-        <div className="container-max">
-          <h2 className="font-heading text-2xl font-bold mb-8">More Articles</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {blogPosts.filter((p) => p.id !== post.id).slice(0, 3).map((p) => (
-              <Link key={p.id} href={`/blog/${p.slug}`} className="block group rounded-2xl overflow-hidden bg-card border border-border hover-lift">
-                <div className="aspect-video overflow-hidden">
-                  <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                </div>
-                <div className="p-5">
-                  <span className="text-xs font-medium text-primary">{p.category}</span>
-                  <h3 className="font-heading font-semibold mt-2 group-hover:text-primary transition-colors line-clamp-2">{p.title}</h3>
-                  <div className="mt-2 text-xs text-muted-foreground">{p.date} · {p.readTime}</div>
-                </div>
-              </Link>
-            ))}
+      {relatedPosts.length > 0 && (
+        <section className="section-padding bg-muted/50">
+          <div className="container-max">
+            <h2 className="font-heading text-2xl font-bold mb-8">More Articles</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedPosts.map((p) => (
+                <Link key={p.id} href={`/blog/${p.slug}`} className="block group rounded-2xl overflow-hidden bg-card border border-border hover-lift">
+                  <div className="aspect-video overflow-hidden">
+                    <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  </div>
+                  <div className="p-5">
+                    <span className="text-xs font-medium text-primary">{p.category}</span>
+                    <h3 className="font-heading font-semibold mt-2 group-hover:text-primary transition-colors line-clamp-2">{p.title}</h3>
+                    <div className="mt-2 text-xs text-muted-foreground">{p.date} · {p.readTime}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }
