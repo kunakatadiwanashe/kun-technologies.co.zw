@@ -15,13 +15,13 @@ export default function BlogPostPage() {
   const [loading, setLoading] = useState(true);
   const [shareUrl, setShareUrl] = useState<string>("");
   const [mounted, setMounted] = useState(false);
-  
+
   useEffect(() => {
     setMounted(true);
     // Get the URL on client side for sharing
     setShareUrl(window.location.href);
   }, []);
-  
+
   useEffect(() => {
     const fetchPost = async () => {
       if (params?.slug) {
