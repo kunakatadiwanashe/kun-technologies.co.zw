@@ -2,26 +2,30 @@ import React from "react";
 import { Linkedin, ArrowUpRight, Plus, Terminal, PenTool, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
+
+import ceoImage from "@/assets/images/3fit.png";
+import ctoImage from "@/assets/images/kun.jpg";
 
 const leadership = [
   { 
-    name: "Executive Name", 
+    name: "Evangeline Kunaka", 
     role: "CEO", 
-    image: "/src/assets/images/3fit.png", 
+    image: ceoImage, 
     initials: "CE",
     linkedin: "https://linkedin.com/in/username" 
   },
   { 
-    name: "Executive Name", 
+    name: "Tadiwanashe Kunaka", 
     role: "CTO", 
-    image: "/src/assets/images/kun.JPG", 
+    image: ctoImage, 
     initials: "CT",
     linkedin: "https://linkedin.com/in/username" 
   },
   { 
     name: "Executive Name", 
     role: "CFO", 
-    image: "/team/cfo.jpg", 
+    image: "/tk.png", 
     initials: "CF",
     linkedin: "https://linkedin.com/in/username" 
   },
@@ -31,14 +35,21 @@ const leads = [
   { 
     name: "Staff Name", 
     role: "Marketing & Comms", 
-    image: "/team/marketing-lead.jpg",
+    image: "/tk.png",
     icon: <BarChart3 className="w-4 h-4" />,
     linkedin: "https://linkedin.com/in/username"
   },
   { 
     name: "Staff Name", 
     role: "Lead Designer", 
-    image: "/team/design-lead.jpg",
+    image: "/tk.png",
+    icon: <PenTool className="w-4 h-4" />,
+    linkedin: "https://linkedin.com/in/username"
+  },
+    { 
+    name: "Staff Name", 
+    role: "Lead Designer", 
+    image: "/tk.png",
     icon: <PenTool className="w-4 h-4" />,
     linkedin: "https://linkedin.com/in/username"
   },
@@ -70,21 +81,22 @@ export default function MeetTheTeam() {
               <div className="relative mb-8 flex justify-between items-start">
                 <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 border-2 border-white dark:border-slate-700 shadow-sm group-hover:scale-105 transition-transform duration-500">
                   {member.image ? (
-                    <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+                    <Image src={member.image} alt={member.name} fill className="object-cover" />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold">{member.initials}</div>
                   )}
                 </div>
                 
                 {member.linkedin && (
-                  <Link
+                  <a 
                     href={member.linkedin} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-blue-600 transition-colors"
                   >
-                    <Linkedin className="w-5 h-5" />
-                  </Link>
+                    <Linkedin className="w-4 h-4" />
+                    Connect
+                  </a>
                 )}
               </div>
 
@@ -95,15 +107,16 @@ export default function MeetTheTeam() {
         </div>
 
         {/* Leads Grid */}
-        <div className="grid md:grid-cols-2 gap-12 mb-32">
+        <div className="grid md:grid-cols-3 gap-12 mb-32">
           {leads.map((lead, i) => (
             <div key={i} className="flex gap-8 items-center group p-4 rounded-2xl hover:bg-white dark:hover:bg-slate-900/40 transition-all duration-300">
               <div className="relative w-32 h-40 rounded-2xl bg-slate-200 dark:bg-slate-800 overflow-hidden shrink-0 shadow-inner">
                 {lead.image && (
-                  <img 
-                    src={lead.image} 
-                    alt={lead.name} 
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
+                  <Image
+                    src={lead.image}
+                    alt={lead.name}
+                    fill
+                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                   />
                 )}
               </div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Target, Eye, Lightbulb, Award, Shield, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "@/components/AnimatedSection";
+import Image from "next/image";
 
 const values = [
   { icon: <Lightbulb className="w-6 h-6" />, title: "Innovation", desc: "We embrace new technologies and creative approaches to solve complex problems." },
@@ -74,10 +75,8 @@ export default function AboutPage() {
         <div className="container-max">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
-              <div className="aspect-square max-w-md rounded-2xl overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                <div className="w-32 h-32 rounded-full gradient-primary flex items-center justify-center">
-                  <span className="font-heading text-4xl font-bold text-primary-foreground">KT</span>
-                </div>
+              <div className="relative aspect-square max-w-md rounded-2xl overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">
+                <Image alt="Founder" src="/tk.png" fill className="object-cover" />
               </div>
             </AnimatedSection>
             <AnimatedSection delay={100}>
