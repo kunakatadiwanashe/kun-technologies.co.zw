@@ -1,21 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export const dynamic = "force-dynamic";
+// Force dynamic - don't prerender this route
+export const dynamic = 'force-dynamic';
 
-type RouteContext = {
-  params: {
-    slug: string;
-  };
-};
-
-// GET /api/blogs/[slug]
+// GET /api/blogs/[slug] - Get single blog post
 export async function GET(
   request: NextRequest,
-  context: RouteContext
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { slug } = context.params;
+    const { slug } = await params;
 
     const post = await prisma.blogPost.findUnique({
       where: { slug },
@@ -41,13 +36,13 @@ export async function GET(
   }
 }
 
-// PUT
+// PUT /api/blogs/[slug] - Update blog post
 export async function PUT(
   request: NextRequest,
-  context: RouteContext
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { slug } = context.params;
+    const { slug } = await params;
     const body = await request.json();
 
     const existingPost = await prisma.blogPost.findUnique({
@@ -82,13 +77,13 @@ export async function PUT(
   }
 }
 
-// DELETE
+// DELETE /api/blogs/[slug] - Delete blog post
 export async function DELETE(
   request: NextRequest,
-  context: RouteContext
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { slug } = context.params;
+    const { slug } = await params;
 
     const existingPost = await prisma.blogPost.findUnique({
       where: { slug },
