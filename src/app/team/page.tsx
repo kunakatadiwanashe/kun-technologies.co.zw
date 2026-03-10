@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 import ceoImage from "@/assets/images/3fit.png";
-import ctoImage from "@/assets/images/kun.jpg";
 
 const leadership = [
   { 
@@ -18,7 +17,7 @@ const leadership = [
   { 
     name: "Tadiwanashe Kunaka", 
     role: "CTO", 
-    image: ctoImage, 
+    image: "/kun.JPG", 
     initials: "CT",
     linkedin: "https://linkedin.com/in/username" 
   },
