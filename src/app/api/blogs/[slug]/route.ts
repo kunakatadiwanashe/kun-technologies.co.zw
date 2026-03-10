@@ -1,15 +1,21 @@
-
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
+type RouteContext = {
+  params: {
+    slug: string;
+  };
+};
+
+// GET /api/blogs/[slug]
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  context: RouteContext
 ) {
   try {
-    const { slug } = params;
+    const { slug } = context.params;
 
     const post = await prisma.blogPost.findUnique({
       where: { slug },
@@ -35,29 +41,15 @@ export async function GET(
   }
 }
 
+// PUT
 export async function PUT(
   request: NextRequest,
-{ params }: { params: { slug: string } }
+  context: RouteContext
 ) {
   try {
-    const { slug } = params;
+    const { slug } = context.params;
     const body = await request.json();
 
-    const {
-      title,
-      excerpt,
-      content,
-      category,
-      author,
-      authorRole,
-      date,
-      readTime,
-      featured,
-      image,
-      tags,
-    } = body;
-
-    // Check if post exists
     const existingPost = await prisma.blogPost.findUnique({
       where: { slug },
     });
@@ -72,17 +64,8 @@ export async function PUT(
     const post = await prisma.blogPost.update({
       where: { slug },
       data: {
-        title: title || existingPost.title,
-        excerpt: excerpt || existingPost.excerpt,
-        content: content || existingPost.content,
-        category: category || existingPost.category,
-        author: author || existingPost.author,
-        authorRole: authorRole || existingPost.authorRole,
-        date: date || existingPost.date,
-        readTime: readTime || existingPost.readTime,
-        featured: featured !== undefined ? featured : existingPost.featured,
-        image: image || existingPost.image,
-        tags: tags ? JSON.stringify(tags) : existingPost.tags,
+        ...body,
+        tags: body.tags ? JSON.stringify(body.tags) : existingPost.tags,
       },
     });
 
@@ -99,15 +82,14 @@ export async function PUT(
   }
 }
 
-// DELETE /api/blogs/[slug] - Delete blog post
+// DELETE
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  context: RouteContext
 ) {
   try {
-    const { slug } = params;
+    const { slug } = context.params;
 
-    // Check if post exists
     const existingPost = await prisma.blogPost.findUnique({
       where: { slug },
     });
@@ -123,7 +105,9 @@ export async function DELETE(
       where: { slug },
     });
 
-    return NextResponse.json({ message: "Blog post deleted successfully" });
+    return NextResponse.json({
+      message: "Blog post deleted successfully",
+    });
   } catch (error) {
     console.error("Error deleting blog post:", error);
     return NextResponse.json(
