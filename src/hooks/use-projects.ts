@@ -26,7 +26,13 @@ export function useProjects() {
       const response = await fetch("/api/projects");
       if (!response.ok) throw new Error("Failed to fetch projects");
       const data = await response.json();
-      setProjects(data);
+      if (Array.isArray(data)) {
+        setProjects(data);
+      } else {
+        console.error('Invalid projects data:', data);
+        setError('Failed to load projects');
+        setProjects([]);
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
