@@ -47,7 +47,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
+
       <meta name="google-site-verification" content="XXXZxH9-_m4_jTcvqY099M5dBMo-7YVgNfAfqQrarTQ" />
+
       <body className="min-h-screen flex flex-col">
         <Providers>
           <Navbar />

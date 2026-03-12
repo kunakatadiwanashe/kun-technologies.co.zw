@@ -30,7 +30,13 @@ export function useBlogs() {
       const response = await fetch("/api/blogs");
       if (!response.ok) throw new Error("Failed to fetch posts");
       const data = await response.json();
-      setPosts(data);
+      if (Array.isArray(data)) {
+        setPosts(data);
+      } else {
+        console.error('Invalid blogs data:', data);
+        setError('Failed to load blog posts');
+        setPosts([]);
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
