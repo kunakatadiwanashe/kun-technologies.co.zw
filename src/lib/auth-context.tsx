@@ -34,7 +34,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log("Auth state changed:", event, session?.user?.email);
+
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
@@ -46,11 +46,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [router, supabase]);
 
   const signIn: AuthContextType["signIn"] = async (email, password) => {
-    console.log("Attempting sign in for:", email);
+
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
     if (error) {
-      console.error("Sign in error details:", error);
+
       if (error.message.includes("Invalid login credentials")) {
         error.message =
           "Invalid email or password. Please check your credentials and try again.";
@@ -64,16 +64,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return { data, error: { ...error, message: error.message } };
     }
 
-    console.log("Sign in successful, user:", data?.user?.email);
+
     return { data, error: null };
   };
 
   const signUp: AuthContextType["signUp"] = async (email, password) => {
-    console.log("Attempting sign up for:", email);
+
     const { data, error } = await supabase.auth.signUp({ email, password });
 
     if (error) {
-      console.error("Sign up error details:", error);
+
       if (error.status === 429 || error.message.includes("rate limit")) {
         error.message =
           "Too many signup attempts. Please wait a few minutes before trying again.";
@@ -96,7 +96,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return { data, error: { ...error, message: error.message } };
     }
 
-    console.log("Sign up successful, user:", data?.user?.email);
+
     return { data, error: null };
   };
 

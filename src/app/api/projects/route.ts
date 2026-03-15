@@ -2,6 +2,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+const parseJsonArray = (field: any): any[] => {
+  if (Array.isArray(field)) return field;
+  if (typeof field === "string") {
+    try {
+      return JSON.parse(field || "[]");
+    } catch {
+      return [];
+    }
+  }
+  return [];
+};
+
 // Force dynamic - don't prerender this route
 export const dynamic = 'force-dynamic';
 
@@ -25,8 +37,8 @@ export async function GET(request: NextRequest) {
     // Parse JSON strings back to arrays
     const projectsWithParsedData = projects.map((project) => ({
       ...project,
-      technologies: JSON.parse(project.technologies || "[]"),
-      results: JSON.parse(project.results || "[]"),
+      technologies: parseJsonArray(project.technologies),
+      results: parseJsonArray(project.results),
     }));
 
     return NextResponse.json(projectsWithParsedData);
@@ -90,8 +102,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       ...project,
-      technologies: JSON.parse(project.technologies || "[]"),
-      results: JSON.parse(project.results || "[]"),
+      technologies: parseJsonArray(project.technologies),
+      results: parseJsonArray(project.results),
     }, { status: 201 });
   } catch (error) {
     console.error("Error creating project:", error);
