@@ -5,7 +5,7 @@ import { ArrowRight, Globe, ShoppingCart, Palette, Brush, Wrench, Camera, Code, 
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "@/components/AnimatedSection";
 import { services, projects, testimonials, blogPosts } from "@/lib/data";
-import Partners from "@/components/partners"; // 
+import Partners from "@/components/partners";
 
 
 
@@ -28,7 +28,7 @@ const stats = [
 
 export default function Home() {
   return (
-    <>
+<>
 
 
 

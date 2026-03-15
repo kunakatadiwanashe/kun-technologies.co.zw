@@ -4,11 +4,22 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'kun-technologies.co.zw',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.kun-technologies.co.zw',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
       },
     ],
   },
 };
 
 export default nextConfig;
-

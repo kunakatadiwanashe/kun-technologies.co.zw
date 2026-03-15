@@ -1,5 +1,17 @@
 
 import { NextRequest, NextResponse } from "next/server";
+
+const parseJsonArray = (field: any): any[] => {
+  if (Array.isArray(field)) return field;
+  if (typeof field === "string") {
+    try {
+      return JSON.parse(field || "[]");
+    } catch {
+      return [];
+    }
+  }
+  return [];
+};
 import { prisma } from "@/lib/prisma";
 
 // Force dynamic - don't prerender this route
@@ -27,8 +39,8 @@ export async function GET(
     // Parse JSON strings back to arrays
     return NextResponse.json({
       ...project,
-      technologies: JSON.parse(project.technologies || "[]"),
-      results: JSON.parse(project.results || "[]"),
+      technologies: parseJsonArray(project.technologies),
+      results: parseJsonArray(project.results),
     });
   } catch (error) {
     console.error("Error fetching project:", error);
@@ -77,16 +89,16 @@ export async function PUT(
         description: description || existingProject.description,
         category: category || existingProject.category,
         image: image || existingProject.image,
-        technologies: technologies ? JSON.stringify(technologies) : existingProject.technologies,
+        technologies: technologies ? JSON.stringify(technologies) : JSON.stringify(existingProject.technologies || []),
         client: client || existingProject.client,
-        results: results ? JSON.stringify(results) : existingProject.results,
+        results: results ? JSON.stringify(results) : JSON.stringify(existingProject.results || []),
       },
     });
 
     return NextResponse.json({
       ...project,
-      technologies: JSON.parse(project.technologies || "[]"),
-      results: JSON.parse(project.results || "[]"),
+      technologies: parseJsonArray(project.technologies),
+      results: parseJsonArray(project.results),
     });
   } catch (error) {
     console.error("Error updating project:", error);

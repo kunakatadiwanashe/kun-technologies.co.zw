@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
 
   // Skip auth check if environment variables are not configured
   if (!supabaseUrl || !supabaseAnonKey) {
-    console.warn("Supabase environment variables not configured");
+
     return supabaseResponse;
   }
 
@@ -47,8 +47,7 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  console.log("Middleware - Session:", session?.user?.email);
-  console.log("Middleware - User:", user?.email);
+
 
   const { pathname } = request.nextUrl;
 

@@ -25,7 +25,7 @@ export async function GET(
 
     return NextResponse.json({
       ...post,
-      tags: JSON.parse(post.tags || "[]"),
+     tags: typeof post.tags === "string" ? JSON.parse(post.tags) : post.tags || [],
     });
   } catch (error) {
     console.error("Error fetching blog post:", error);
@@ -66,7 +66,7 @@ export async function PUT(
 
     return NextResponse.json({
       ...post,
-      tags: JSON.parse(post.tags || "[]"),
+     tags: typeof post.tags === "string" ? JSON.parse(post.tags) : post.tags || [],
     });
   } catch (error) {
     console.error("Error updating blog post:", error);

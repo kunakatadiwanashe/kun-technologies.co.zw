@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     // Parse tags JSON string back to array
     const postsWithParsedTags = posts.map((post) => ({
       ...post,
-      tags: JSON.parse(post.tags || "[]"),
+      tags: typeof post.tags === "string" ? JSON.parse(post.tags) : post.tags || [],
     }));
 
     return NextResponse.json(postsWithParsedTags);
@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       ...post,
-      tags: JSON.parse(post.tags || "[]"),
+       tags: typeof post.tags === "string" ? JSON.parse(post.tags) : post.tags || [],
     }, { status: 201 });
   } catch (error) {
     console.error("Error creating blog post:", error);
